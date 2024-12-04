@@ -1,7 +1,16 @@
 <?php 
-include("connect.php")
+include("connect.php");
 
 
+if (isset($_POST['submit'])) {
+  $nip = $_POST['nip'];
+  $nama = $_POST['nama'];
+  $jabatan = $_POST['jabatan'];
+
+  // Redirect ke halaman Enroll Sidik Jari dengan membawa data sementara
+  header("Location: halamanEnrollSidikJari.php?nip=$nip&nama=$nama&jabatan=$jabatan");
+  exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -9,7 +18,7 @@ include("connect.php")
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Halaman Data Absensi Masuk</title>
+    <title>Halaman Tambah Data pegawai</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <!-- Font Awesome -->
@@ -37,10 +46,10 @@ include("connect.php")
         <a href="halamanDataKaryawan.php" class="list-group-item list-group-item-action py-2 ripple ">
           <i class="bi bi-people-fill me-3"></i><span>Data Karyawan</span>
         </a>
-        <a href="halamanTambahDataPegawai.php" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
           <i class="bi bi-person-add me-3"></i><span>Tambah Karyawan</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+        <a href="halamanDataAbsensiMasuk.php" class="list-group-item list-group-item-action py-2 ripple">
           <i class="bi bi-person-fill-up me-3"></i><span>Data Absensi Masuk</span>
         </a>
         <a href="halamanDataAbsensiKeluar.php" class="list-group-item list-group-item-action py-2 ripple">
@@ -71,73 +80,46 @@ include("connect.php")
   <!-- Main Layout -->
   <div id="main">
     <div class="page-heading mb-4">
-      <h1>Data Absensi Masuk</h1>
+      <h1>Tambah Data Karyawan</h1>
     </div>
     <div class="page-content">
-      <div class="button-add d-flex justify-content-end mb-3">
-        <a href="#" style="text-decoration:none" >
-          <button type="button" class="btn btn-outline-primary" ><i class="bi bi-clock-history me-2"></i>History Absensi Masuk</button>
-        </a>
-      </div>
-      <div class="card shadow">
+      <!-- card form -->
+      <div class="card shadow-sm">
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr class="table-primary">
-                  <th scope="col">No</th>
-                  <th scope="col">ID</th>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Divisi</th>
-                  <th scope="col">Waktu</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>123201890124</td>
-                  <td>Otto Jayakarta</td>
-                  <td>Software Developer</td>
-                  <td>06:30</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-            
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>123201890123</td>
-                  <td>Jacob Van Hoven</td>
-                  <td>Accunting</td>
-                  <td>06:35</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>123201890121</td>
-                  <td>Jarjit Singh</td>
-                  <td>Marketing</td>
-                  <td>06:36</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-   
-      </div>
+
+<!-- form -->
+      <form action="" method="post" enctype="multipart/form-data">
+          <div class="mb-3 row">
+          <label for="nip" class="col-sm-2 col-form-label">NIP</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nip" name="nip">
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nama" name="nama">
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="jabatan" name="jabatan">
+            </div>
+          </div>
+
+            <div class="mt-4">
+              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+              <button type="reset"  name="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+<!-- end form -->
         </div>
       </div>
-    </div>
+      <!-- end card form -->
+    </di>
   </div>
   <!-- End Main Layout -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

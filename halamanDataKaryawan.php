@@ -34,6 +34,9 @@
         <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
           <i class="bi bi-people-fill me-3"></i><span>Data Karyawan</span>
         </a>
+        <a href="halamanTambahDataPegawai.php" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="bi bi-person-add me-3"></i><span>Tambah Karyawan</span>
+        </a>
         <a href="halamanDataAbsensiMasuk.php" class="list-group-item list-group-item-action py-2 ripple">
           <i class="bi bi-person-fill-up me-3"></i><span>Data Absensi Masuk</span>
         </a>
