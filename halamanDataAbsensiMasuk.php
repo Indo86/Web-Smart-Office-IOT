@@ -3,65 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Halaman Data Karyawan</title>
+    <title>Halaman Data Absensi Masuk</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
   <!-- Google Fonts Roboto -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <link rel="stylesheet" href="assets/css/generalStyle.css">
   </head>
-  <style>
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      padding: 58px 0 0; /* Height of navbar */
-      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-      width: 240px;
-      z-index: 600;
-      overflow: hidden;
-      height: 100vh;
-    }
-
-    nav.nav-top{
-      z-index: 601;
-    }
-
-
-    
-    /* At screen widths below 992px, sidebar becomes offcanvas */
-    @media (max-width: 991.98px) {
-      .sidebar {
-        width: 100%;
-      }
-    }
-
-    #main {
-      margin-left: 240px;
-      margin-top: 65px;
-      padding: 15px;
-      overflow-y: auto;
-    }
-
-    @media (max-width: 991.98px) {
-      #main {
-        margin-left: 0;
-        padding: 20px;
-      }
-      .offcanvas-backdrop.show {
-        z-index: 1040;
-      }
-
-      .sidebar.offcanvas-lg {
-        z-index: 1050; /* Pastikan sidebar lebih tinggi dari backdrop overlay */
-      }
-    }
-
-    
-  </style>
 </head>
 <body>
 
@@ -75,16 +25,16 @@
     </div>
     <div class="offcanvas-body">
       <div class="list-group list-group-flush ms-4 mt-lg-4">
-        <a href="halamanDashboard.html" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="halamanDashboard.php" class="list-group-item list-group-item-action py-2 ripple" >
           <i class="bi bi-speedometer me-3"></i><span>Dashboard</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+        <a href="halamanDataKaryawan.php" class="list-group-item list-group-item-action py-2 ripple ">
           <i class="bi bi-people-fill me-3"></i><span>Data Karyawan</span>
         </a>
-        <a href="halamanDataAbsensiMasuk.html" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
           <i class="bi bi-person-fill-up me-3"></i><span>Data Absensi Masuk</span>
         </a>
-        <a href="halamanDataAbsensiKeluar.html" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="halamanDataAbsensiKeluar.php" class="list-group-item list-group-item-action py-2 ripple">
           <i class="bi bi-person-fill-down me-3"></i><span>Data Absensi Keluar</span>
         </a>
         <a href="#" style="text-decoration:none;" class="d-grid gap-2 col-10 mx-auto mt-5">
@@ -112,12 +62,12 @@
   <!-- Main Layout -->
   <div id="main">
     <div class="page-heading mb-4">
-      <h1>Data Karyawan</h1>
+      <h1>Data Absensi Masuk</h1>
     </div>
     <div class="page-content">
       <div class="button-add d-flex justify-content-end mb-3">
         <a href="#" style="text-decoration:none" >
-          <button type="button" class="btn btn-outline-primary" ><i class="bi bi-person-plus me-2"></i>Registrasi karyawan</button>
+          <button type="button" class="btn btn-outline-primary" ><i class="bi bi-clock-history me-2"></i>History Absensi Masuk</button>
         </a>
       </div>
       <div class="card shadow">
@@ -130,6 +80,7 @@
                   <th scope="col">ID</th>
                   <th scope="col">Nama</th>
                   <th scope="col">Divisi</th>
+                  <th scope="col">Waktu</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
@@ -139,16 +90,12 @@
                   <td>123201890124</td>
                   <td>Otto Jayakarta</td>
                   <td>Software Developer</td>
+                  <td>06:30</td>
                   <td class="d-flex gap-2">
                     <a href="#" style="text-decoration:none" >
                       <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
                     </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-warning"><i class="bi bi-pencil-square me-2"></i>Edit</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Hapus</button>
-                    </a>
+            
                   </td>
                 </tr>
                 <tr>
@@ -156,15 +103,10 @@
                   <td>123201890123</td>
                   <td>Jacob Van Hoven</td>
                   <td>Accunting</td>
+                  <td>06:35</td>
                   <td class="d-flex gap-2">
                     <a href="#" style="text-decoration:none" >
                       <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-warning"><i class="bi bi-pencil-square me-2"></i>Edit</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Hapus</button>
                     </a>
                   </td>
                 </tr>
@@ -173,15 +115,10 @@
                   <td>123201890121</td>
                   <td>Jarjit Singh</td>
                   <td>Marketing</td>
+                  <td>06:36</td>
                   <td class="d-flex gap-2">
                     <a href="#" style="text-decoration:none" >
                       <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-warning"><i class="bi bi-pencil-square me-2"></i>Edit</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Hapus</button>
                     </a>
                   </td>
                 </tr>

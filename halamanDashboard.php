@@ -1,3 +1,29 @@
+<?php 
+
+include("connect.php");
+
+
+// Menjalankan query untuk menghitung total pegawai
+$queriJumlahPegawai  = "SELECT COUNT(*) AS totalPegawai FROM pegawai";
+$resultJumlahPegawai = mysqli_query($conn, $queriJumlahPegawai);
+
+// Mengambil hasil query
+$jumlahPegawai  = mysqli_fetch_assoc($resultJumlahPegawai);
+
+
+// Mengambil tanggal hari ini
+$tanggalHariIni = date('Y-m-d');
+// Menyusun query untuk menghitung jumlah pegawai yang masuk pada hari ini
+$queriJumlahPegawaiMasuk  = "SELECT COUNT(*) AS totalPegawaiMasuk FROM kedatangan WHERE tanggal= '$tanggalHariIni'";
+// Menjalankan query
+$resultJumlahPegawaiMasuk = mysqli_query($conn, $queriJumlahPegawaiMasuk);
+// Mengambil hasil query
+$jumlahPegawaiMasuk  = mysqli_fetch_assoc($resultJumlahPegawaiMasuk);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,56 +36,9 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
   <!-- Google Fonts Roboto -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <link rel="stylesheet" href="assets/css/generalStyle.css">
   </head>
-  <style>
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      padding: 58px 0 0; /* Height of navbar */
-      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-      width: 240px;
-      z-index: 600;
-      overflow: hidden;
-      height: 100vh;
-    }
-
-    nav.nav-top{
-      z-index: 601;
-    }
-    
-    /* At screen widths below 992px, sidebar becomes offcanvas */
-    @media (max-width: 991.98px) {
-      .sidebar {
-        width: 100%;
-      }
-    }
-
-    #main {
-      margin-left: 240px;
-      margin-top: 65px;
-      padding: 15px;
-      overflow-y: auto;
-    }
-
-    @media (max-width: 991.98px) {
-      #main {
-        margin-left: 0;
-        padding: 20px;
-      }
-      .offcanvas-backdrop.show {
-        z-index: 1040;
-      }
-
-      .sidebar.offcanvas-lg {
-        z-index: 1050; /* Pastikan sidebar lebih tinggi dari backdrop overlay */
-      }
-    }
-
-    
-  </style>
+  <style></style>
 </head>
 <body>
 
@@ -76,13 +55,13 @@
         <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
           <i class="bi bi-speedometer me-3"></i><span>Dashboard</span>
         </a>
-        <a href="halamanDataKaryawan.html" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="halamanDataKaryawan.php" class="list-group-item list-group-item-action py-2 ripple">
           <i class="bi bi-people-fill me-3"></i><span>Data Karyawan</span>
         </a>
-        <a href="halamanDataAbsensiMasuk.html" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="halamanDataAbsensiMasuk.php" class="list-group-item list-group-item-action py-2 ripple">
           <i class="bi bi-person-fill-up me-3"></i><span>Data Absensi Masuk</span>
         </a>
-        <a href="halamanDataAbsensiKeluar.html" class="list-group-item list-group-item-action py-2 ripple">
+        <a href="halamanDataAbsensiKeluar.php" class="list-group-item list-group-item-action py-2 ripple">
           <i class="bi bi-person-fill-down me-3"></i><span>Data Absensi Keluar</span>
         </a>
         <a href="#" style="text-decoration:none;" class="d-grid gap-2 col-10 mx-auto mt-5">
@@ -121,7 +100,7 @@
             <div class="card-body">
               <div class="row g-0">
                 <div class="col-md-4 col-sm-2 col-2 d-flex flex-column align-items-center justify-content-center">
-                  <h3>10</h3>
+                  <h3><?= $jumlahPegawai['totalPegawai']; ?></h3>
                 </div>
                 <div class="col-md-8  col-sm-4 col-5">
                   <h3 class="card-title">Karyawan</h3>
@@ -137,7 +116,7 @@
                 <div class="card-body">
                   <div class="row g-0">
                     <div class="col-md-4 col-sm-2 col-2 d-flex flex-column align-items-center justify-content-center">
-                      <h3>4</h3>
+                      <h3><?= $jumlahPegawaiMasuk['totalPegawaiMasuk']; ?></h3>
                     </div>
                     <div class="col-md-8 col-sm-4 col-5">
                       <h3 class="card-title">Masuk</h3>
