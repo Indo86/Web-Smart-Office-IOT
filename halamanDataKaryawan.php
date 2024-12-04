@@ -1,5 +1,6 @@
-
-
+<?php 
+  include('connect.php'); // Menghubungkan ke file koneksi database
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,13 +10,12 @@
     <title>Halaman Data Karyawan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
-  <link rel="stylesheet" href="assets/css/generalStyle.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" href="assets/css/generalStyle.css">
   </head>
-</head>
 <body>
 
 <!-- Main Navigation -->
@@ -72,7 +72,7 @@
     </div>
     <div class="page-content">
       <div class="button-add d-flex justify-content-end mb-3">
-        <a href="#" style="text-decoration:none" >
+        <a href="halamanTambahDataPegawai.php" style="text-decoration:none" >
           <button type="button" class="btn btn-outline-primary" ><i class="bi bi-person-plus me-2"></i>Registrasi karyawan</button>
         </a>
       </div>
@@ -83,64 +83,43 @@
               <thead>
                 <tr class="table-primary">
                   <th scope="col">No</th>
-                  <th scope="col">ID</th>
+                  <th scope="col">NIP</th>
                   <th scope="col">Nama</th>
-                  <th scope="col">Divisi</th>
+                  <th scope="col">Jabatan</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>123201890124</td>
-                  <td>Otto Jayakarta</td>
-                  <td>Software Developer</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-warning"><i class="bi bi-pencil-square me-2"></i>Edit</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Hapus</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>123201890123</td>
-                  <td>Jacob Van Hoven</td>
-                  <td>Accunting</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-warning"><i class="bi bi-pencil-square me-2"></i>Edit</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Hapus</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>123201890121</td>
-                  <td>Jarjit Singh</td>
-                  <td>Marketing</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-warning"><i class="bi bi-pencil-square me-2"></i>Edit</button>
-                    </a>
-                    <a href="" style="text-decoration:none">
-                      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Hapus</button>
-                    </a>
-                  </td>
-                </tr>
+                <?php
+                  // Query untuk mengambil data dari tabel pegawai
+                  $sql = "SELECT * FROM pegawai"; 
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0) {
+                    $no = 1;
+                    while($row = $result->fetch_assoc()) {
+                      echo "<tr>
+                              <th scope='row'>".$no."</th>
+                              <td>".$row['nip']."</td>
+                              <td>".$row['nama']."</td>
+                              <td>".$row['jabatan']."</td>
+                              <td class='d-flex gap-2'>
+                                <a href='#' style='text-decoration:none'>
+                                  <button type='button' class='btn btn-outline-primary'><i class='bi bi-list-columns-reverse me-2'></i>Lihat</button>
+                                </a>
+                                <a href='#' style='text-decoration:none'>
+                                  <button type='button' class='btn btn-outline-warning'><i class='bi bi-pencil-square me-2'></i>Edit</button>
+                                </a>
+                                <a href='#' style='text-decoration:none'>
+                                  <button type='button' class='btn btn-outline-danger'><i class='bi bi-trash me-2'></i>Hapus</button>
+                                </a>
+                              </td>
+                            </tr>";
+                      $no++;
+                    }
+                  } else {
+                    echo "<tr><td colspan='5'>Tidak ada data</td></tr>";
+                  }
+                ?>
               </tbody>
             </table>
    
@@ -154,4 +133,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
 </html>
-

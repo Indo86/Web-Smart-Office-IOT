@@ -1,22 +1,3 @@
-<?php 
-include("connect.php");
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['finger_id'])) {
-  $nip = $_GET['nip'];
-  $nama = $_GET['nama'];
-  $jabatan = $_GET['jabatan'];
-  $finger_id = $_POST['finger_id'];
-
-  // Simpan data ke database
-  $query = "INSERT INTO pegawai (nip, nama, jabatan, finger_id) VALUES ('$nip', '$nama', '$jabatan', '$finger_id')";
-  if (mysqli_query($conn, $query)) {
-      echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'halamanDataKaryawan.php';</script>";
-  } else {
-      echo "<script>alert('Error menyimpan data: " . mysqli_error($conn) . "');</script>";
-  }
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -87,24 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['finger_id'])) {
       <h1>Enroll Sidik Jari</h1>
     </div>
     <div class="page-content">
-    <div class="card shadow-sm">
-    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-        <!-- Image -->
-        <div class="image mb-3">
-            <img src="assets/img/fingerprint2.png" alt="Fingerprint Icon" class="img-fluid">
-        </div>
-        
-        <!-- Description -->
-        <div class="description mb-3">
-            <p>Waiting for your Finger</p>
-        </div>
-
-        <!-- Button -->
-        <div class="button-submit">
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-</div>
+   
     </di>
   </div>
   <!-- End Main Layout -->

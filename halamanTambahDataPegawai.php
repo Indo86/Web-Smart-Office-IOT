@@ -7,8 +7,14 @@ if (isset($_POST['submit'])) {
   $nama = $_POST['nama'];
   $jabatan = $_POST['jabatan'];
 
+  $query = "INSERT INTO pegawai (nip, nama, jabatan) VALUES ('$nip', '$nama', '$jabatan')";
+  if (mysqli_query($conn, $query)) {
+      echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'halamanDataKaryawan.php';</script>";
+  } else {
+      echo "<script>alert('Error menyimpan data: " . mysqli_error($conn) . "');</script>";
+  }
   // Redirect ke halaman Enroll Sidik Jari dengan membawa data sementara
-  header("Location: halamanEnrollSidikJari.php?nip=$nip&nama=$nama&jabatan=$jabatan");
+  header("Location: halamanInputSidikJari.php?nip=$nip");
   exit;
 }
 
@@ -84,11 +90,22 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="page-content">
       <!-- card form -->
-      <div class="card shadow-sm">
+      <div class="card  shadow-sm">
         <div class="card-body">
-
+        <div class="card shadow-sm">
+    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+        <!-- Image -->
+        <div class="image mb-3">
+            <img src="assets/img/fingerprint2.png" alt="Fingerprint Icon" class="img-fluid">
+        </div>
+        <!-- Description -->
+        <div class="description mb-3">
+            <p>Waiting for your Finger</p>
+        </div>
+    </div>
+</div>
 <!-- form -->
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="" method="post" enctype="multipart/form-data" class="mt-4">
           <div class="mb-3 row">
           <label for="nip" class="col-sm-2 col-form-label">NIP</label>
             <div class="col-sm-10">

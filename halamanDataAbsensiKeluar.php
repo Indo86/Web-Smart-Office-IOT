@@ -1,3 +1,23 @@
+<?php
+// Panggil koneksi ke database
+require_once 'connect.php'; // Asumsi file ini berisi koneksi database dalam variabel $conn
+
+// Query untuk mendapatkan data dari tabel kepulangan dan melakukan inner join dengan tabel pegawai
+$query = "
+    SELECT 
+        kepulangan.kepulangan_id, 
+        pegawai.nip, 
+        pegawai.nama, 
+        pegawai.jabatan, 
+        kepulangan.waktu_kepulangan 
+    FROM kepulangan 
+    INNER JOIN pegawai ON kepulangan.pegawai_id = pegawai.id
+    ORDER BY kepulangan.waktu_kepulangan DESC
+";
+
+$result = $conn->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,13 +26,12 @@
     <title>Halaman Data Absensi Keluar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
-  <!-- Google Fonts Roboto -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
-  <link rel="stylesheet" href="assets/css/generalStyle.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+    <link rel="stylesheet" href="assets/css/generalStyle.css">
   </head>
-</head>
 <body>
 
 <!-- Main Navigation -->
@@ -62,80 +81,52 @@
     </div>
   </nav>
 </header>
-  <!-- Main Layout -->
-  <div id="main">
-    <div class="page-heading mb-4">
-      <h1>Data Absensi Keluar</h1>
-    </div>
-    <div class="page-content">
-      <div class="button-add d-flex justify-content-end mb-3">
-        <a href="#" style="text-decoration:none" >
-          <button type="button" class="btn btn-outline-primary" ><i class="bi bi-clock-history me-2"></i>History Absensi Keluar</button>
-        </a>
-      </div>
-      <div class="card shadow">
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr class="table-primary">
-                  <th scope="col">No</th>
-                  <th scope="col">ID</th>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Divisi</th>
-                  <th scope="col">Waktu</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
+
+<!-- Main Layout -->
+<div id="main" class="container mt-5 pt-4">
+  <div class="page-heading mb-4">
+    <h1>Data Absensi Keluar</h1>
+  </div>
+  <div class="page-content">
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr class="table-primary">
+                <th scope="col">No</th>
+                <th scope="col">NIP</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Divisi</th>
+                <th scope="col">Waktu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if ($result->num_rows > 0): ?>
+                <?php $no = 1; while ($row = $result->fetch_assoc()): ?>
+                  <tr>
+                    <th scope="row"><?php echo $no++; ?></th>
+                    <td><?php echo $row['nip']; ?></td>
+                    <td><?php echo $row['nama']; ?></td>
+                    <td><?php echo $row['jabatan']; ?></td>
+                    <td><?php echo $row['waktu_kepulangan']; ?></td>
+                  </tr>
+                <?php endwhile; ?>
+              <?php else: ?>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>123201890124</td>
-                  <td>Otto Jayakarta</td>
-                  <td>Software Developer</td>
-                  <td>16:30</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-            
-                  </td>
+                  <td colspan="5" class="text-center">Tidak ada data absensi keluar</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>123201890123</td>
-                  <td>Jacob Van Hoven</td>
-                  <td>Accunting</td>
-                  <td>16:35</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>123201890121</td>
-                  <td>Jarjit Singh</td>
-                  <td>Marketing</td>
-                  <td>16:36</td>
-                  <td class="d-flex gap-2">
-                    <a href="#" style="text-decoration:none" >
-                      <button type="button" class="btn btn-outline-primary" ><i class="bi bi-list-columns-reverse me-2"></i>Lihat</button>
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-   
-      </div>
+              <?php endif; ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <!-- End Main Layout -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </body>
-</html>
+</div>
+<!-- End Main Layout -->
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
